@@ -3,6 +3,12 @@ const World = Matter.World;
 const Bodies = Matter.Bodies;
 const Body = Matter.Body;
 const Constraint = Matter.Constraint;
+var backgroundImg
+
+function preload() {
+  backgroundImg =loadImage("images/bg.jpg")
+  getTime();
+}
 
 
 function setup() {
@@ -56,7 +62,10 @@ function setup() {
 }
 
 function draw() {
-  background(55,43,43);
+  //background(55,43,43);
+  if(backgroundImg){
+    background(backgroundImg);
+}
   ground.display();
   ground2.display();
   ground3.display();
@@ -112,3 +121,25 @@ function keyPressed()  {
   }
 
 }
+
+
+
+async function getTime(){
+
+  var response=await fetch ('http://worldtimeapi.org/api/timezone/Asia/Kolkata')
+  var responseJSON=await response.json() 
+  
+  console.log(responseJSON.datetime)
+  var datetime=responseJSON.datetime;
+  var hour=datetime.slice(11,13)
+  var hour = 22
+  console.log(hour)
+  if(hour>=6&&hour<=19){
+      bg='images/bg.jpg'
+  }else{
+      bg="images/bg2.jpg"
+  
+  }
+ 
+  
+  }
